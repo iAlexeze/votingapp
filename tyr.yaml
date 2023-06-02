@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgresl
+  template:
+    metadata:
+      labels:
+        app: postgresl
+    spec:
+      containers:
+        - name: postgres-cont
+          image: postgres:15-alpine
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: db-sec
+          resources: {}
